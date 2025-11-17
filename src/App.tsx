@@ -9,6 +9,7 @@ import Lotto from './lotto/Lotto'
 import Festival from './festival/Festival'
 import FestivalContent from './festival/FestivalContent'
 import TodoList from './todo/TodoList'
+import Test from './test/Test'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -26,6 +27,7 @@ function App() { // 함수명은 파일명과 동일해야 하며, 대문자로 
             <Route path='/festival/content' element={<FestivalContent />} />
             <Route path='/todolist' element={<TodoList />}/>
             <Route path='/login' element={<Login />} />
+            <Route path='/test' element={<Test />} />
           </Routes>
         </main>
         <Footer />
