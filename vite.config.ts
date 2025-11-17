@@ -7,4 +7,20 @@ export default defineConfig({
   plugins: [react(),
     tailwind(),
   ],
+  server: {
+    proxy: {
+      '/kobisopenapi': {
+        target: 'https://kobis.or.kr/kobisopenapi',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/kobisopenapi/, ''), 
+        secure: false
+      },
+      '/dataApi' : {
+        target: 'https://apis.data.go.kr',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/dataApi/, ''),
+        secure: false
+      }
+    }
+  }
 })
