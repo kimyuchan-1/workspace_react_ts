@@ -49,8 +49,10 @@ export default function Header() {
                                     <LuLogOut /><p>&nbsp;Logout</p>
                                 </button>
                             </Link>
-                            <button onClick={toggleMenu} className='px-5'>
-                                <FaBars className='hover:cursor-pointer hover:bg-white rounded-md hover:text-black text-3xl hover:font-bold '/>
+                            <button onClick={toggleMenu} className='text-3xl flex flex-row justify-center items-center
+                                                    hover:cursor-pointer hover:bg-white hover:text-black
+                                                    rounded-md p-1 m-2 text-white hover:font-bold'>
+                                <FaBars />
                             </button>
                         </div>
                         }
