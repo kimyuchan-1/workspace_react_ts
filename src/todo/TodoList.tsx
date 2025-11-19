@@ -3,11 +3,17 @@ import TodoItem from './TodoItem'
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/client";
 
+export interface Todo {
+    id:number;
+    text:string;
+    completed:boolean;
+}
+
 export default function TodoList() {
-    const [ todos, setTodos ] = useState([]);
+    const [ todos, setTodos ] = useState<Todo[]>([]);
     const [ completed, setCompleted ] = useState(0);
     const [ imcompleted, setImcompleted ] = useState(0);
-    const [ itemTags, setItemTags ] = useState([]);
+    const [ itemTags, setItemTags ] = useState<React.ReactElement[]>([]);
 
     const getTodos = async () => {
         const { data, error } = await supabase
@@ -16,7 +22,7 @@ export default function TodoList() {
             .order('id', {ascending: true});
 
         if (error) {
-            console.error("Error fetching todos: ", resp.statusText);
+            console.error("Error fetching todos: ", error.message);
             setTodos([]);
         } else {
             setTodos(data);

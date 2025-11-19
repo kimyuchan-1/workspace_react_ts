@@ -2,19 +2,24 @@ import TailButton from "../component/TailButton";
 import { useRef } from "react";
 import { supabase } from "../supabase/client";
 
-export default function TodoInput({ getTodos }) {
-    const txtRef = useRef();
+interface TodoInputProps {
+    getTodos: () => void;
+}
+
+
+export default function TodoInput({ getTodos }: TodoInputProps) {
+    const txtRef = useRef<HTMLInputElement>(null);
 
     const insertTodo = async () => {
-        const temp = txtRef.current.value;
+        const temp = txtRef.current?.value;
 
-        if (temp == "") {
+        if (!temp || temp.trim() === "") {
             alert("할 일을 입력하세요.");
-            txtRef.current.focus();
+            txtRef.current?.focus();
             return;
         }
 
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('todos')
             .insert([
                 { text: temp, completed: false },
@@ -23,10 +28,12 @@ export default function TodoInput({ getTodos }) {
             console.error('Error inserting todo:', error);
         } else {
             getTodos();
-            txtRef.current.value = "";
-            txtRef.current.focus();
+            if (txtRef.current) {
+                txtRef.current.value = "";
+                txtRef.current.focus();
+            }
         }
-    }
+    };
 
     return (
         <div className="w-full flex flex-row justify-between items-center">

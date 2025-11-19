@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { supabase } from './supabase/client';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { isLoginAtom } from './isLogin';
+import type { Session, User } from '@supabase/supabase-js';
 
 function Login() {
   // session 상태를 저장하는 state
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<Session | null>(null);
   // user 정보를 저장하는 state
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   // isLogin 상태를 저장하는 state
-  const [isLogin, setIsLogin] = useAtom(isLoginAtom);
+  const setIsLogin = useSetAtom(isLoginAtom);
 
   // 컴포넌트가 마운트될 때 한 번 실행되는 useEffect
   useEffect(() => {

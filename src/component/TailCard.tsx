@@ -1,5 +1,13 @@
-export default function TailCard({ title, url, location, keyword, keyVal }) {
-    let keywordTags = keyword.split(", ").map((item, idx) => {
+interface TailCardProps {
+    title: string;
+    url: string;
+    location: string;
+    keyword: string;
+    keyVal: string;
+}
+
+export default function TailCard({ title, url, location, keyword, keyVal }:TailCardProps) {
+    let keywordTags : (React.ReactElement | undefined)[] = keyword.split(", ").map((item, idx) => {
         if (item == "") {
             return;
         }

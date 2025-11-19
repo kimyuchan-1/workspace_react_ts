@@ -3,7 +3,7 @@ import TailButton from '../component/TailButton';
 
 export default function FestivalContent() {
     const location = useLocation();
-    const content = location.state.content;
+    const content = location.state.contents;
 
     const navigate = useNavigate();
     const handleHome = () => {

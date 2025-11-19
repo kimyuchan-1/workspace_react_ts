@@ -2,12 +2,21 @@ import {useState, useEffect} from 'react'
 import TailCard from '../component/TailCard'
 import { Link } from 'react-router-dom'
 
+interface FestivalData {
+    [key: string] : string
+}
+
+interface FestivalApiResponse {
+    getFestivalKr: {
+        item: FestivalData[];
+    }
+}
 
 export default function Festival() {
-    const [fData, setFData] = useState([]);
-    const [selectedDistrict, setSelectedDistrict] = useState([]);
-    const [cardTags, setCardTags] = useState([]);
-    const [optionTags, setOptionTags] = useState([]);
+    const [fData, setFData] = useState<FestivalData[]>([]);
+    const [selectedDistrict, setSelectedDistrict] = useState<FestivalData[]>([]);
+    const [cardTags, setCardTags] = useState<React.ReactElement[]>([]);
+    const [optionTags, setOptionTags] = useState<React.ReactElement[]>([]);
 
     const getFetchData = async () => {
         const apiKey = import.meta.env.VITE_APP_API_KEY; 
@@ -16,14 +25,14 @@ export default function Festival() {
 
         try{
             const resp = await fetch(url);
-            const data = await resp.json();
+            const data: FestivalApiResponse = await resp.json();
             const festivalData = await data.getFestivalKr.item;
             setFData(festivalData);
 
             const temp =  [
             ...new Set(festivalData.map(item => item.GUGUN_NM))
             ].sort();
-            const options = temp.map(item => <option key = {item} value = {item}>{item}</option>);
+            const options = temp.map(item => <option key = {item} value  = {item}>{item}</option>);
             setOptionTags(options);
 
             setSelectedDistrict(festivalData);
@@ -34,10 +43,10 @@ export default function Festival() {
 
     };
 
-    const selectDistrict = (e) => {
+    const selectDistrict = (e:React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        if (e.target.value == 1) {
+        if (e.target.value == '1') {
             setSelectedDistrict(fData);
         } else {
             const temp = fData.filter(item => item.GUGUN_NM === e.target.value);
@@ -63,7 +72,7 @@ export default function Festival() {
     return (
         <div className='w-full flex flex-col justify-start items-center p-3'>
             <h2 className='text-3xl font-bold m-1'>부산축제정보</h2>
-            <select className='border-solid border-1 border-gray-500 
+            <select className='border-solid border border-gray-500 
                                m-3 p-1 w-3/10 text-left text-sm rounded-sm'
                     name = "district"
                     onChange={selectDistrict}

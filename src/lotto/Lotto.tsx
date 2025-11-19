@@ -3,12 +3,12 @@ import TailButton from '../component/TailButton';
 import { useState } from 'react';
 
 export default function Lotto() {
-  const [numbers, setNumbers] = useState([]);
-  const [remainNum, setRemainNum] = useState();
-  const [plusString, setplusString] = useState();
+  const [numbers, setNumbers] = useState<number[]>([]);
+  const [remainNum, setRemainNum] = useState<number>();
+  const [plusString, setplusString] = useState<string>();
 
   const generateBalls = () => {
-    let temp = [];
+    let temp: number[] | null = [];
 
     // 랜덤 번호 생성
     while (temp.length != 7) {
@@ -19,7 +19,7 @@ export default function Lotto() {
     }
 
     // 나머지 숫자 추출
-    let remain = temp.pop(6);
+    let remain = temp.pop()!;
 
     // 남은 배열 정렬
     temp.sort((a,b) => a-b);

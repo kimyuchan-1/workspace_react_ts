@@ -19,7 +19,7 @@ function App() { // 함수명은 파일명과 동일해야 하며, 대문자로 
     <BrowserRouter>
       <div className='w-full h-screen flex flex-col overflow-hidden'>
         <Header/>
-        <main className='w-full container mx-auto flex flex-col flex-grow overflow-y-auto'>
+        <main className='w-full container mx-auto flex flex-col grow overflow-y-auto'>
           <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/lotto' element={<Lotto />} />

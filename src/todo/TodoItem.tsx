@@ -2,7 +2,14 @@ import TailButton from "../component/TailButton";
 import { useState } from "react";
 import { supabase } from "../supabase/client";
 
-export default function TodoItem({ id, text, completed, getTodos }) {
+interface TodoItemProps {
+    id: number;
+    text: string;
+    completed: boolean;
+    getTodos: () => void;
+}
+
+export default function TodoItem({ id, text, completed, getTodos }:TodoItemProps) {
     const [isEdit, setIsEdit] = useState(false);
     const [value, setValue] = useState(text);
 
@@ -18,12 +25,12 @@ export default function TodoItem({ id, text, completed, getTodos }) {
         }
     };
 
-    const insertField = (e) => {
+    const insertField = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setIsEdit(true);
     };
 
-    const cancelTodo = (e) => {
+    const cancelTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setValue(text);
         setIsEdit(false);
@@ -49,7 +56,7 @@ export default function TodoItem({ id, text, completed, getTodos }) {
         }
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
     };
 
@@ -70,14 +77,14 @@ export default function TodoItem({ id, text, completed, getTodos }) {
             {isEdit ?
                 <div className="w-full mt-4 flex flex-row items-center py-2 h-13 ">
                     <input type="checkbox" className="mx-2 w-5 h-5 cursor-pointer" checked={completed} onChange={handleCheck} />
-                    <input type="text" name={id} value={value} className="flex-1 h-10 p-2" onChange={handleInputChange} autoFocus />
+                    <input type="text" name={id.toString()} value={value} className="flex-1 h-10 p-2" onChange={handleInputChange} autoFocus />
                     <TailButton caption="완료" color="lime" onHandle={updateTodo} />
                     <TailButton caption="취소" color="orange" onHandle={cancelTodo} />
                 </div>
                 :
                 <div className="w-full mt-4 flex flex-row items-center py-2 h-13 " >
                     <input type="checkbox" className="mx-2 w-5 h-5 cursor-pointer" checked={completed} onChange={handleCheck} />
-                    <div className={`flex-1 p-2 ${completed ? "line-through" : ""}`} name={id}>{text}</div>
+                    <div className={`flex-1 p-2 ${completed ? "line-through" : ""}`} >{text}</div>
                     <TailButton caption="수정" color="lime" onHandle={insertField} />
                     <TailButton caption="삭제" color="orange" onHandle={delTodo} />
                 </div>
