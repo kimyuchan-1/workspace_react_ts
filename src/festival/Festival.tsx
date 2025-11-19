@@ -37,7 +37,7 @@ export default function Festival() {
         try{
             const resp = await fetch(url);
             const data: FestivalApiResponse = await resp.json();
-            const festivalData = await data.getFestivalKr.item;
+            const festivalData = data.getFestivalKr.item;
             setFData(festivalData);
 
             const temp =  [
