@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import TailButton from '../component/TailButton';
+import type { FestivalData } from './Festival';
 
 export default function FestivalContent() {
     const location = useLocation();
-    const content = location.state.contents;
+    const content:FestivalData = location.state.content;
 
     const navigate = useNavigate();
     const handleHome = () => {
